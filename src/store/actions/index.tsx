@@ -3,12 +3,12 @@ import axios from "axios"
 import { parse } from "fast-xml-parser"
 import { Book, Author } from "../../objectTemplates/templates"
 var config = {
-  headers: [
-    { key: "Access-Control-Allow-Credentials", value: "true" },
-    { key: "Access-Control-Allow-Origin", value: "*" },
-    { key: "Access-Control-Allow-Methods", value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
-    { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" },
-  ]
+  headers: {
+    "Access-Control-Allow-Credentials":"*",
+    "Access-Control-Allow-Origin":"true",
+    "Access-Control-Allow-Methods":"GET,OPTIONS,PATCH,DELETE,POST,PUT",
+    "Access-Control-Allow-Headers":"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+  }
 };
 
 export const fetchBooksFromServer = (bookName: string|null|undefined, page: number = 1) => async (
@@ -19,7 +19,7 @@ export const fetchBooksFromServer = (bookName: string|null|undefined, page: numb
   //let book = bookName === null ? getState()
   let book = (bookName === null || bookName === undefined) ? getState()?.booksStore?.key : bookName
   let res = await axios.get(
-    `/api/search?key=4k2Bg0OHGUapepdPa2BOQg&q=${book}&page=${page}`
+    `/api/search?key=4k2Bg0OHGUapepdPa2BOQg&q=${book}&page=${page}`,config
   )
   let parsedResponse = parse(res.data)
   let totalResults = parsedResponse.GoodreadsResponse.search["total-results"]
@@ -51,7 +51,7 @@ export const fetchAuthorFromServerById = (id: number) => async (
   dispatch: any
 ) => {
   let res = await axios.get(
-    `/api/author/show.xml?key=4k2Bg0OHGUapepdPa2BOQg&id=${id}`
+    `/api/author/show.xml?key=4k2Bg0OHGUapepdPa2BOQg&id=${id}`,config
   )
   let parsedResponse = parse(res.data).GoodreadsResponse.author
   let {
