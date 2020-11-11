@@ -1,0 +1,30 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap');
+
+body {
+  min-height: 100vh;
+  font-size: 14px;
+  background-color:#ECEFF1
+}
+
+:root {
+  --mute-text-color: rgb(118, 121, 136);
+  --info-color-darkest: rgb(38, 42, 65);
+  --success-color-darker: rgb(90, 198, 197);
+  --success-color-lighter: rgb(224, 245, 244);
+  --info-color-darker: rgb(94, 159, 241);
+  --info-color-lighter: rgb(227, 239, 253);
+  --danger-color-darker: rgb(240, 142, 109);
+  --danger-color-lighter: rgb(253, 238, 232);
+  --secondary-color-darker: rgb(133, 145, 159);
+  --secondary-color-lighter: rgb(236, 238, 240);
+  --primary-color: rgb(54, 217, 216);
+  --purple-color: rgb(137, 79, 198);
+  --light-blue-color: rgb(213, 222, 234);
+  --primary: #23adad;
+  --greyLight: #23adade1;
+  --greyLight-2: #cbe0dd;
+  --greyDark: #2d4848;
+}
+

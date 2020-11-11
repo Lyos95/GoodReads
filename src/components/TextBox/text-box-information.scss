@@ -1,0 +1,15 @@
+.text-box-information{
+    box-shadow: 0 1px 1px rgba(0,0,0,.15);
+    padding:1rem 3rem;
+    background-color: white;
+    font-family: 'Roboto';
+    line-height: 1.3rem;
+    color: rgba(20, 20, 20, 0.726);
+    h1{
+        color: rgba(61, 59, 59, 0.829)
+    }
+    a{
+        color: rgba(55, 55, 230, 0.747);
+        text-decoration: none;
+    }
+}
