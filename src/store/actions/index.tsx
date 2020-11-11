@@ -2,6 +2,9 @@ import { FETCH_BOOKS, FETCH_AUTHOR } from "./types"
 import axios from "axios"
 import { parse } from "fast-xml-parser"
 import { Book, Author } from "../../objectTemplates/templates"
+var config = {
+  headers: {'Access-Control-Allow-Origin': '*'}
+};
 
 export const fetchBooksFromServer = (bookName: string|null|undefined, page: number = 1) => async (
   dispatch: any,
@@ -11,7 +14,8 @@ export const fetchBooksFromServer = (bookName: string|null|undefined, page: numb
   //let book = bookName === null ? getState()
   let book = (bookName === null || bookName === undefined) ? getState()?.booksStore?.key : bookName
   let res = await axios.get(
-    `https://www.goodreads.com/search?key=4k2Bg0OHGUapepdPa2BOQg&q=${book}&page=${page}`
+    `https://www.goodreads.com/search?key=4k2Bg0OHGUapepdPa2BOQg&q=${book}&page=${page}`,
+    config
   )
   let parsedResponse = parse(res.data)
   let totalResults = parsedResponse.GoodreadsResponse.search["total-results"]
@@ -43,7 +47,8 @@ export const fetchAuthorFromServerById = (id: number) => async (
   dispatch: any
 ) => {
   let res = await axios.get(
-    `https://www.goodreads.com/author/show.xml?key=4k2Bg0OHGUapepdPa2BOQg&id=${id}`
+    `https://www.goodreads.com/author/show.xml?key=4k2Bg0OHGUapepdPa2BOQg&id=${id}`,
+    config
   )
   let parsedResponse = parse(res.data).GoodreadsResponse.author
   let {
