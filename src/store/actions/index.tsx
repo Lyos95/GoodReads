@@ -11,7 +11,7 @@ export const fetchBooksFromServer = (bookName: string|null|undefined, page: numb
   //let book = bookName === null ? getState()
   let book = (bookName === null || bookName === undefined) ? getState()?.booksStore?.key : bookName
   let res = await axios.get(
-    `/search?key=4k2Bg0OHGUapepdPa2BOQg&q=${book}&page=${page}`
+    `https://www.goodreads.com/search?key=4k2Bg0OHGUapepdPa2BOQg&q=${book}&page=${page}`
   )
   let parsedResponse = parse(res.data)
   let totalResults = parsedResponse.GoodreadsResponse.search["total-results"]
@@ -43,7 +43,7 @@ export const fetchAuthorFromServerById = (id: number) => async (
   dispatch: any
 ) => {
   let res = await axios.get(
-    `/author/show.xml?key=4k2Bg0OHGUapepdPa2BOQg&id=${id}`
+    `https://www.goodreads.com/author/show.xml?key=4k2Bg0OHGUapepdPa2BOQg&id=${id}`
   )
   let parsedResponse = parse(res.data).GoodreadsResponse.author
   let {
