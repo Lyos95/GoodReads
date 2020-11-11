@@ -53,7 +53,9 @@
   }
 
   &__numbers {
-    width: 2rem;
+    width: fit-content;
+    padding-left: 7px;
+    padding-right: 7px;
     height: 2rem;
     border-radius: 0.4rem;
 

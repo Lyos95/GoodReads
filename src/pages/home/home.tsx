@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import "./home.scss"
 import Card from "../../components/Card/Card"
@@ -10,10 +10,17 @@ import Pagination from "../../components/Pagination/Pagination"
 const RESULTS_PER_PAGE = 20
 
 const HomePage = (props: any) => {
+  const dispatch = useDispatch()
+  const fetchBooks = useCallback((book?:string) =>{
+    return dispatch(fetchBooksFromServer(book))
+  },[dispatch])
+
+  const [currentPage,setCurrentPage] = useState(1)
+
   let books: any = useSelector((state: any) => {
     return state.booksStore.books
   })
-  let bookSearched: any = useSelector((state: any) => {
+  let searchedBook: any = useSelector((state: any) => {
     return state.booksStore.key
   })
 
@@ -21,7 +28,14 @@ const HomePage = (props: any) => {
     return state.booksStore.total
   })
 
-  let dispatch = useDispatch()
+  useEffect(() =>{
+    setCurrentPage(1)
+  },[searchedBook])
+
+  useEffect(() =>{
+    dispatch(fetchBooksFromServer(null,currentPage))
+  },[currentPage,dispatch])
+
   let renderCards = (books: Book[]) => {
     return books.map((book: Book, index: number) => {
       return (
@@ -42,14 +56,13 @@ const HomePage = (props: any) => {
     )
   }
 
-  let renderPagination = (bookSearched: string) => {
-    if (bookSearched && bookSearched !== "") {
+  let renderPagination = (searchedBook: string) => {
+    if (searchedBook && searchedBook !== "") {
       return (
         <Pagination
           totalPages={Math.ceil(totalAmountOfBooks / RESULTS_PER_PAGE)}
-          triggerFunction={(page: number) => {
-            dispatch(fetchBooksFromServer(bookSearched, page))
-          }}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         ></Pagination>
       )
     }
@@ -67,13 +80,13 @@ const HomePage = (props: any) => {
           </header>
           <SearchBar
             wait_Interval={1000}
-            triggerAction={fetchBooksFromServer}
+            triggerAction={fetchBooks}
           ></SearchBar>
           {renderResults()}
         </article>
       </div>
       <div className="books">{renderCards(books)}</div>
-      {renderPagination(bookSearched)}
+      {renderPagination(searchedBook)}
     </>
   )
 }

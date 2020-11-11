@@ -7,9 +7,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useWindowSize from "../../hooks/useWindowSize";
 
-type PaginationProps = { triggerFunction: Function, totalPages: number };
-const Pagination = ({ triggerFunction, totalPages }: PaginationProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
+type PaginationProps = { totalPages: number,currentPage:number,setCurrentPage:Function };
+const Pagination = ({ totalPages,currentPage,setCurrentPage }: PaginationProps) => {
+
   const [maxPages, setMaxPages] = useState(7);
   const size = useWindowSize();
 
@@ -20,10 +20,6 @@ const Pagination = ({ triggerFunction, totalPages }: PaginationProps) => {
       setMaxPages(7);
     }
   }, [size,maxPages]);
-
-  useEffect(() => {
-    triggerFunction(currentPage);
-  }, [currentPage,triggerFunction]);
 
 
   let nextPage = () => {
@@ -55,7 +51,7 @@ const Pagination = ({ triggerFunction, totalPages }: PaginationProps) => {
         >
           1
         </li>,
-        <li className="page__dots">...</li>,
+        <li className="page__dots" key='dots-start'>...</li>,
       ]);
     }
 
@@ -80,7 +76,7 @@ const Pagination = ({ triggerFunction, totalPages }: PaginationProps) => {
         currentPage === totalPages ? "active" : ""
       }`;
       pages.push([
-        <li className="page__dots" key="-1">...</li>,
+        <li className="page__dots" key="dots-end">...</li>,
         <li
           onClick={() => {
             selectPage(totalPages);

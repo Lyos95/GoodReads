@@ -3,11 +3,10 @@ import React, { useState,useRef, useEffect } from 'react'
 import './search-bar.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch } from 'react-redux'
+
 
 type SearchBarProps = {wait_Interval?:number,triggerAction:Function}
 const SearchBar = ({wait_Interval=1000,triggerAction}:SearchBarProps) =>{
-    const dispatch = useDispatch()
     //STATE
     const [inputValue, setInputValue] = useState('')
     const timeoutRef = useRef<ReturnType<typeof setTimeout>|null>(null)
@@ -15,9 +14,9 @@ const SearchBar = ({wait_Interval=1000,triggerAction}:SearchBarProps) =>{
 
     useEffect(() => {
     timeoutRef.current = setTimeout(() => {
-        dispatch(triggerAction(inputValue))
+        (triggerAction(inputValue))
     }, wait_Interval)
-    }, [inputValue,wait_Interval,triggerAction,dispatch])
+    }, [inputValue,wait_Interval,triggerAction])
 
     let customClearTimeout = () => {
     if (timeoutRef.current !== null) {

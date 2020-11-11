@@ -3,11 +3,15 @@ import axios from "axios"
 import { parse } from "fast-xml-parser"
 import { Book, Author } from "../../objectTemplates/templates"
 
-export const fetchBooksFromServer = (value: String, page: number = 1) => async (
-  dispatch: any
+export const fetchBooksFromServer = (bookName: string|null|undefined, page: number = 1) => async (
+  dispatch: any,
+  getState: any
 ) => {
+
+  //let book = bookName === null ? getState()
+  let book = (bookName === null || bookName === undefined) ? getState()?.booksStore?.key : bookName
   let res = await axios.get(
-    `/search?key=4k2Bg0OHGUapepdPa2BOQg&q=${value}&page=${page}`
+    `/search?key=4k2Bg0OHGUapepdPa2BOQg&q=${book}&page=${page}`
   )
   let parsedResponse = parse(res.data)
   let totalResults = parsedResponse.GoodreadsResponse.search["total-results"]
@@ -31,7 +35,7 @@ export const fetchBooksFromServer = (value: String, page: number = 1) => async (
 
   dispatch({
     type: FETCH_BOOKS,
-    payload: { books: books, total: totalResults, key: value },
+    payload: { books: books, total: totalResults, key: book },
   })
 }
 
