@@ -1,21 +1,21 @@
 export class Book {
-    title: string = ''
+    title?: string = ''
     rating ? : number = undefined
-    author ? : Author = undefined
+    author ? : Author|null = undefined
     publicationDate ? : string = undefined
     image ? : string = ''
-    isbn ? : string = undefined
+    isbn ? : number = undefined
     textReviewsCount ? : number = undefined
     linkToGoodReads ? : string = undefined
     pages ? : number = undefined
     format ? : string = undefined
     description ? : string = undefined
     ratingCounts ?: number = undefined
-    constructor(title: string, rating: number,
-        author ? : Author,
+    constructor(title?: string, rating?: number,
+        author ? : Author|null,
         publicationDate ? : string,
         image ? : string,
-        isbn ? : string,
+        isbn ? : number,
         textReviewsCount ? : number,
         linkToGoodReads ? : string,
         pages ? : number,

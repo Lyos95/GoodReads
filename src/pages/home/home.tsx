@@ -56,8 +56,8 @@ const HomePage = (props: any) => {
     )
   }
 
-  let renderPagination = (searchedBook: string) => {
-    if (searchedBook && searchedBook !== "") {
+  let renderPagination = (totalAmountOfBooks:number) => {
+    if (totalAmountOfBooks && totalAmountOfBooks > 0) {
       return (
         <Pagination
           totalPages={Math.ceil(totalAmountOfBooks / RESULTS_PER_PAGE)}
@@ -86,7 +86,7 @@ const HomePage = (props: any) => {
         </article>
       </div>
       <div className="books">{renderCards(books)}</div>
-      {renderPagination(searchedBook)}
+      {renderPagination(totalAmountOfBooks)}
     </>
   )
 }
